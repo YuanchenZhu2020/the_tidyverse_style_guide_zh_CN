@@ -2,6 +2,7 @@
    sphinx-quickstart on Sat Jul 25 13:37:26 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+.. utf-8
 
 The tidyverse style guide zh-CN
 ===============================
@@ -11,6 +12,7 @@ The tidyverse style guide zh-CN
 在翻译 \ *R Packages 2nd editon*\  时，第 6 章 \ *R Code*\  中，6.2、6.3 节的内容被删去，\
 放到了此处
 
+
 相关链接
 --------
 
@@ -18,7 +20,7 @@ The tidyverse style guide zh-CN
 
 - \ **原书**\ ：\ `The tidyverse style guide <https://github.com/tidyverse/style>`__\ 
 - \ **原书网页文档版**\ : `The tidyverse style guide <https://style.tidyverse.org/>`__
-- \ **个人译本**\ : `The tidyverse style guide zh-CN <>`__
+- \ **个人译本**\ : `The tidyverse style guide zh-CN <https://the-tidyverse-style-guide-zh-cn.readthedocs.io/zh_CN/latest/>`__
 - GitHub Repo: https://github.com/YuanchenZhu2020/the_tidyverse_style_guide_zh_CN
 
 
