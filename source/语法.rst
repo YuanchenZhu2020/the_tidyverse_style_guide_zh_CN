@@ -1,0 +1,525 @@
+2 语法
+===================
+
+
+2.1 对象名称
+---------------------
+
+    "There are only two hard things in Computer Science: cache invalidation and naming things."
+
+    — Phil Karlton
+
+
+变量名和函数名只能使用小写字母、数字和 ``_``。在一个名字里用下划线（``_``）来分隔单词（即所谓的蛇形命名法）。
+
+.. code-block:: R
+
+    # Good
+    day_one
+    day_1
+
+    # Bad
+    DayOne
+    dayone
+
+Base R 在函数名（``contrib.url()``）和类名（``data.frame``）中使用英文句点 ``.``，但最好只为 S3 对象系统保留点。\
+在 S3 中，方法被命名为 ``function.class``；如果你也在函数名和类名中使用 ``.``，您最终会得到一些令人困惑的方法，比如 ``as.data.frame.data.frame()``。
+
+如果您发现自己试图将数据填充到变量名中（例如 ``model_2018``、``model_2019``、``model_2020``），请考虑使用列表或数据框。
+
+一般来说，变量名应该是名词，函数名应该是动词。力求名字简洁而有意义（这并不容易！）。
+
+.. code-block:: R
+
+    # Good
+    day_one
+
+    # Bad
+    first_day_of_the_month
+    djm1
+
+尽可能避免重复使用常用函数和变量的名称。这将给代码的读者带来混乱。
+
+.. code-block:: R
+
+    # Bad
+    T <- FALSE
+    c <- 10
+    mean <- function(x) sum(x)
+
+
+2.2 使用空格
+------------------
+
+
+2.2.1 逗号
+.................
+
+就像普通英语一样，在逗号后面总是放一个空格，而不是在它之前。
+
+.. code-block:: R
+
+    # Good
+    x[, 1]
+
+    # Bad
+    x[,1]
+    x[ ,1]
+    x[ , 1]
+
+
+2.2.2 圆括号
+.....................
+
+对于常规的函数调用，不要在圆括号之内或之外添加空格。
+
+.. code-block:: R
+
+    # Good
+    mean(x, na.rm = TRUE)
+
+    # Bad
+    mean (x, na.rm = TRUE)
+    mean( x, na.rm = TRUE )
+
+与 ``if``、``for`` 或 ``while`` 一起使用时，请在 ``()`` 前后放置空格。
+
+.. code-block:: R
+
+    # Good
+    if (debug) {
+        show(x)
+    }
+
+    # Bad
+    if(debug){
+        show(x)
+    }
+
+对于函数参数，在 ``()`` 后面放置一个空格：
+
+.. code-block:: R
+
+    # Good
+    function(x) {}
+
+    # Bad
+    function (x) {}
+    function(x){}
+
+
+2.2.3 Embracing
+....................
+
+拥抱运算符（embracing operator） ``{{ }}`` 应该始终有内部空格来帮助强调其特殊行为：
+
+.. code-block:: R
+
+    # Good
+    max_by <- function(data, var, by) {
+    data %>%
+        group_by({{ by }}) %>%
+        summarise(maximum = max({{ var }}, na.rm = TRUE))
+    }
+
+    # Bad
+    max_by <- function(data, var, by) {
+    data %>%
+        group_by({{by}}) %>%
+        summarise(maximum = max({{var}}, na.rm = TRUE))
+    }
+
+
+2.2.4 中缀运算符
+.....................
+
+大多数中缀运算符（``=``，``+``，``-``，``<-`` 等）应始终由空格包围：
+
+.. code-block:: R
+
+    # Good
+    height <- (feet * 12) + inches
+    mean(x, na.rm = TRUE)
+
+    # Bad
+    height<-feet*12+inches
+    mean(x, na.rm=TRUE)
+
+但是有一些例外情况，它们不应被空格包围：
+
+- 具有\ `高优先级 <https://rdrr.io/r/base/Syntax.html>`__\ 的运算符：``::``，``:::``，``$``，``@``，``[``，``[[``，``^``，一元 ``-``，一元 ``+``，和 ``:``。
+
+    .. code-block:: R
+
+        # Good
+        sqrt(x^2 + y^2)
+        df$z
+        x <- 1:10
+
+        # Bad
+        sqrt(x ^ 2 + y ^ 2)
+        df $ z
+        x <- 1 : 10
+
+- 右侧是单个标识符（single identifier）的单边公式（single-sided formulas）：
+
+    .. code-block:: R
+
+        # Good
+        ~foo
+        tribble(
+        ~col1, ~col2,
+        "a",   "b"
+        )
+
+        # Bad
+        ~ foo
+        tribble(
+        ~ col1, ~ col2,
+        "a", "b"
+        )
+
+    请注意，右侧复杂的单边公式确实需要一个空格：
+
+    .. code-block:: R
+
+        # Good
+        ~ .x + .y
+
+        # Bad
+        ~.x + .y
+
+- 用于整洁评估（tidy evalutaion）时 ``!!``(bang-bang)还有 ``!!!``(bang-bang-bang)（因为优先级相当于一元 ``-``/``+``）
+
+    .. code-block:: R
+
+        # Good
+        call(!!xyz)
+
+        # Bad
+        call(!! xyz)
+        call( !! xyz)
+        call(! !xyz)
+
+- 帮助运算符
+
+    .. code-block:: R
+ 
+        # Good
+        package?stats
+        ?mean
+
+        # Bad
+        package ? stats
+        ? mean
+
+2.2.5 额外的空格
+....................
+
+添加额外的空格可以改善 ``=`` 或 ``<-`` 的对齐方式。
+
+.. code-block:: R
+
+    # Good
+    list(
+        total = a + b + c,
+        mean  = (a + b + c) / n
+    )
+
+    # Also fine
+    list(
+        total = a + b + c,
+        mean = (a + b + c) / n
+    )
+
+不要在通常不允许使用空格的地方增加额外的空格。
+
+
+2.3 函数调用
+-----------------
+
+
+2.3.1 命名参数
+.........................
+
+函数的参数通常分为两大类：一类提供要计算的\ **数据**\ ；另一类控制计算的\ **细节**\ 。\
+调用函数时，通常会忽略数据参数的名称，因为它们的用法非常普遍。如果重写参数的默认值，请使用全名：
+
+.. code-block:: R
+
+    # Good
+    mean(1:10, na.rm = TRUE)
+
+    # Bad
+    mean(x = 1:10, , FALSE)
+    mean(, TRUE, x = c(1:10, NA))
+
+避免参数的部分匹配。
+
+
+2.3.2 赋值（Assignment）
+...........................
+
+避免在函数调用中进行赋值：
+
+.. code-block:: R
+
+    # Good
+    x <- complicated_function()
+    if (nzchar(x) < 1) {
+        # do something
+    }
+
+    # Bad
+    if (nzchar(x <- complicated_function()) < 1) {
+        # do something
+    }
+
+唯一的例外是使用捕获副作用的函数：
+
+.. code-block:: R
+
+    output <- capture.output(x <- f())
+
+
+2.4 控制流
+---------------------
+
+
+2.4.1 代码块
+..................
+
+大括号 ``{}`` 定义了 R 代码最重要的层次结构。要使此层次结构易于查看，请执行以下操作：
+
+- ``{`` 应该是行内的最后一个字符。相关代码（如 ``if`` 子句、函数声明、尾部逗号……）必须与左大括号位于同一行。
+- 内容应该缩进两个空格。
+- ``}`` 应该是行内的第一个字符。
+
+.. code-block:: R
+
+    # Good
+    if (y < 0 && debug) {
+        message("y is negative")
+    }
+
+    if (y == 0) {
+        if (x > 0) {
+            log(x)
+        } else {
+            message("x is negative or zero")
+        }
+    } else {
+        y^x
+    }
+
+    test_that("call1 returns an ordered factor", {
+        expect_s3_class(call1(x, y), c("factor", "ordered"))
+    })
+
+    tryCatch(
+        {
+            x <- scan()
+            cat("Total: ", sum(x), "\n", sep = "")
+        },
+        interrupt = function(e) {
+            message("Aborted by user")
+        }
+    )
+
+    # Bad
+    if (y < 0 && debug) {
+    message("Y is negative")
+    }
+
+    if (y == 0)
+    {
+            if (x > 0) {
+                log(x)
+            } else {
+        message("x is negative or zero")
+            }
+    } else { y ^ x }
+
+
+2.4.2 行内语句
+.....................
+
+只要不产生副作用，就可以不使用大括号来处理只适合一行的简单语句。
+
+.. code-block:: R
+
+    # Good
+    y <- 10
+    x <- if (y < 20) "Too low" else "Too high"
+
+影响控制流的函数调用（如 ``return()``、``stop()`` 或 ``continue``）应始终位于它们自己的 ``{}`` 代码块中：
+
+.. code-block:: R
+
+    # Good
+    if (y < 0) {
+        stop("Y is negative")
+    }
+
+    find_abs <- function(x) {
+        if (x > 0) {
+            return(x)
+        }
+        x * -1
+    }
+
+    # Bad
+    if (y < 0) stop("Y is negative")
+
+    if (y < 0)
+        stop("Y is negative")
+
+    find_abs <- function(x) {
+        if (x > 0) return(x)
+        x * -1
+    }
+
+
+2.4.3 隐式类型强制转换（Implicit type coercion）
+...................................................
+
+避免在 ``if`` 语句中使用隐式类型强制转换（例如从数值类型强制转换为逻辑类型）：
+
+.. code-block:: R
+
+    # Good
+    if (length(x) > 0) {
+        # do something
+    }
+
+    # Bad
+    if (length(x)) {
+        # do something
+    }
+
+
+2.4.4 Switch 语句
+........................
+
+- 避免使用基于位置的 ``switch()`` 语句（即首选名称）。
+- 每个元素都应该在自己的行上。
+- 采用后面元素的值的元素在 ``=`` 后应具有空格。
+- 除非您以前验证过输入，否则请提供一个失败抛出错误。
+
+.. code-block:: R
+
+    # Good 
+    switch(x
+        a = ,
+        b = 1, 
+        c = 2,
+        stop("Unknown `x`", call. = FALSE)
+    )
+
+    # Bad
+    switch(x, a = , b = 1, c = 2)
+    switch(x, a =, b = 1, c = 2)
+    switch(y, 1, 2, 3)
+
+
+2.5 长的行
+---------------
+
+尽量将代码限制在每行 80 个字符。这适合一个大小合理的字体打印页面。如果您发现自己的空间不足，这是一个很好的指示，您应该将一些工作封装在一个单独的函数中。
+
+如果函数调用太长，无法放在一行中，请为函数名、每个参数和结束符 ``)`` 分别使用一行。这使得代码更易于以后的阅读和更改。
+
+.. code-block:: R
+
+    # Good
+    do_something_very_complicated(
+        something = "that",
+        requires = many,
+        arguments = "some of which may be long"
+    )
+
+    # Bad
+    do_something_very_complicated("that", requires, many, arguments,
+                                  "some of which may be long"
+                                  )
+
+如[参数名称]中所述，您可以省略非常常见的参数（即几乎在每次函数调用中都会使用的参数）的名称。短的未命名参数也可以与函数名称位于同一行，即使整个函数调用跨越了多行。
+
+.. code-block:: R
+
+    map(x, f,
+        extra_argument_a = 10,
+        extra_argument_b = c(1, 43, 390, 210209)
+    )
+
+如果参数彼此密切相关，也可以将多个参数放在同一行上，例如，调用 ``paste()`` 或 ``stop()`` 时的字符串。在构建字符串时，尽可能将一行代码与一行输出相匹配。
+
+.. code-block:: R
+
+    # Good
+    paste0(
+        "Requirement: ", requires, "\n",
+        "Result: ", result, "\n"
+    )
+
+    # Bad
+    paste0(
+        "Requirement: ", requires,
+        "\n", "Result: ",
+        result, "\n")
+
+
+2.6 分号
+------------------
+
+不要把 ``;`` 放在一行的末尾，并且不要使用 ``;`` 把多个命令放在同一行中。
+
+
+2.7 赋值（Assignment）
+-------------------------------
+
+使用 ``<-`` 而不是 ``=`` 来进行赋值。
+
+.. code-block:: R
+
+    # Good
+    x <- 5
+
+    # Bad
+    x = 5
+
+
+2.8 数据
+---------------
+
+
+2.8.1 字符向量
+..................
+
+
+引用文本时使用 ``"`` 而不是 ``'``。唯一的例外是文本已经包含双引号，并且不包含单引号。
+
+.. code-block:: R
+
+    # Good
+    "Text"
+    'Text with "quotes"'
+    '<a href="http://style.tidyverse.org">A link</a>'
+
+    # Bad
+    'Text'
+    'Text with "double" and \'single\' quotes'
+
+
+2.8.2 逻辑向量
+.....................
+
+相比于 ``T`` 和 ``F``，应该更倾向于使用 ``TRUE`` 和 ``FALSE``。
+
+
+2.9 注释
+-----------------
+
+注释的每一行都应以注释符号和一个空格开头：``#``
+
+在数据分析的代码中，使用注释来记录重要的发现和分析决策。如果您需要注释来解释您的代码在做什么，请考虑重写代码以使其更加清楚。如果你有更多的注释，可以考虑使用 \ `R Markdown <https://rmarkdown.rstudio.com/>`__\ 。

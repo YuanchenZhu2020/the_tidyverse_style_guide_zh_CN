@@ -61,6 +61,7 @@ The tidyverse style guide zh-CN
    
    前言.rst
    文件.rst
+   语法.rst
 
 
 
