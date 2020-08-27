@@ -18,8 +18,9 @@ The tidyverse style guide zh-CN
 
 - \ **原书**\ ：\ `The tidyverse style guide <https://github.com/tidyverse/style>`__\ 
 - \ **原书网页文档版**\ : `The tidyverse style guide <https://style.tidyverse.org/>`__
-- \ **个人译本**\ : `The tidyverse style guide zh-CN <https://r-packages-zh-cn.readthedocs.io/zh_CN/latest/>`__
+- \ **个人译本**\ : `The tidyverse style guide zh-CN <>`__
 - GitHub Repo: https://github.com/YuanchenZhu2020/the_tidyverse_style_guide_zh_CN
+
 
 \ *R Packages*\ :
 
@@ -28,12 +29,36 @@ The tidyverse style guide zh-CN
 - \ **个人译本**\ : `R Packages zh-CN <https://r-packages-zh-cn.readthedocs.io/zh_CN/latest/>`__
 - GitHub Repo: https://github.com/YuanchenZhu2020/R_Packages_zh_CN
 
+
+翻译进度
+-------------
+
+✅：翻译完成
+
+❌：还未翻译
+
+- ✅ Welcome
+- ❌ Files
+- ❌ Syntax
+- ❌ Fuctions
+- ❌ Pipes
+- ❌ ggplot2
+- ❌ Files
+- ❌ Documentation
+- ❌ Tests
+- ❌ Error messages
+- ❌ News
+- ❌ Git/GitHub
+
+
 全书目录
 --------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   
+   前言.rst
+   文件.rst
 
 
 

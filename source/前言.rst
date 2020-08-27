@@ -1,0 +1,26 @@
+The tidyverse style guide
+=============================
+
+\ *Hadley Wickham*\ 
+
+
+前言（Welcome）
+==========================
+
+好的编码风格就像正确的标点符号：没有标点符号你也能应付，但它能让我们更加容易阅读（butitsuremakesthingseasiertoread）。\
+这个网站描述了整个 \ `tidyverse <http://tidyverse.org/>`__\  的代码风格。它源于 Google 最初的 R 代码风格指南（R Style Guide），\
+但是 Google \ `当前的指南 <https://google.github.io/styleguide/Rguide.html>`__\  是从 tidyverse 代码风格指南（tidyverse style guide）中派生出来的。
+
+所有的代码风格指南基本上都是固执己见的。有些决策确实使代码更易于使用（特别是将缩进与编程结构相匹配），但许多决策都是武断的。\
+代码风格指南最重要的是提供了一致性，使代码更易于编写，因为您需要做的决策更少。
+
+两个 R 程序包支持此代码风格指南：
+
+- \ `styler <http://styler.r-lib.org/>`__\  允许您交互式地重新设置所选文本、文件或整个项目的样式。它包含一个 RStudio 插件（Add-in），这是重新设计现有代码样式的最简单方法。
+
+.. image:: ./Image/Welcome/styler-addin.png
+    :align: center
+    :width: 250
+    :height: 130.24
+
+- \ `lintr <https://github.com/jimhester/lintr>`__\  执行自动检查以确认您的代码符合样式指南。

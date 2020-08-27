@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'The tidyverse style guild zh-CN'
+project = 'The tidyverse style guide zh-CN'
 copyright = '2020, YuanchenZhu'
 author = 'YuanchenZhu'
 
