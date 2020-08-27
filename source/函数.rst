@@ -1,0 +1,135 @@
+3 函数
+=========
+
+
+3.1 命名
+-----------------
+
+除了遵循 \ `对象名称 <https://style.tidyverse.org/syntax.html#object-names>`__\  的一般建议外，尽量使用动词作为函数名：
+
+.. code-block:: R
+
+    # Good
+    add_row()
+    permute()
+
+    # Bad
+    row_adder()
+    permutation()
+
+
+3.2 长的行
+-----------------
+
+如果函数定义占用了多行，则将第二行缩进到定义开始的位置。
+
+.. code-block:: R
+
+    # Good
+    long_function_name <- function(a = "a long argument",
+                                   b = "another argument",
+                                   c = "another long argument") {
+        # As usual code is indented by two spaces.
+    }
+
+    # Bad
+    long_function_name <- function(a = "a long argument",
+        b = "another argument",
+        c = "another long argument") {
+        # Here it's hard to spot where the definition ends and the
+        # code begins
+    }
+
+
+3.3 ``return()``
+--------------------
+
+只对前部的返回值使用 ``return()``。否则，依赖 R 返回最后计算的表达式的结果。
+
+.. code-block:: R
+
+
+    # Good
+    find_abs <- function(x) {
+        if (x > 0) {
+            return(x)
+        }
+        x * -1
+    }
+    add_two <- function(x, y) {
+        x + y
+    }
+
+    # Bad
+    add_two <- function(x, y) {
+        return(x + y)
+    }
+
+返回语句应该总是在自己的行上，因为它们对控制流有重要影响。另请参见 \ `inline statements <https://style.tidyverse.org/syntax.html#inline-statements>`__\ 。
+
+.. code-block:: R
+
+    # Good
+    find_abs <- function(x) {
+        if (x > 0) {
+            return(x)
+        }
+        x * -1
+    }
+
+    # Bad
+    find_abs <- function(x) {
+        if (x > 0) return(x)
+        x * -1
+    }
+
+如果函数的调用主要是为了它的副作用（如打印文字、打印图片或保存到磁盘），那么它应该以不可见的方式返回第一个参数。\
+这使得可以将函数用作管道（pipe）的一部分。``print`` 方法通常应该这样做，例如 \ `httr <http://httr.r-lib.org/>`__\  的示例：
+
+.. code-block:: R
+
+    print.url <- function(x, ...) {
+        cat("Url: ", build_url(x), "\n", sep = "")
+        invisible(x)
+    }
+
+
+3.4 注释
+---------------
+
+在代码中，使用注释来解释“为什么”，而不是“什么”或“如何”。注释的每一行都应该以注释符号和一个空格开始：``#``。
+
+.. code-block:: R
+
+    # Good
+
+    # Objects like data frames are treated as leaves
+    x <- map_if(x, is_bare_list, recurse)
+
+
+    # Bad
+
+    # Recurse only with bare lists
+    x <- map_if(x, is_bare_list, recurse)
+
+注释应该以句子的形式组织，并且只有在至少包含两个句子时才以句号结尾：
+
+.. code-block:: R
+
+    # Good
+
+    # Objects like data frames are treated as leaves
+    x <- map_if(x, is_bare_list, recurse)
+
+    # Do not use `is.list()`. Objects like data frames must be treated
+    # as leaves.
+    x <- map_if(x, is_bare_list, recurse)
+
+
+    # Bad
+
+    # objects like data frames are treated as leaves
+    x <- map_if(x, is_bare_list, recurse)
+
+    # Objects like data frames are treated as leaves.
+    x <- map_if(x, is_bare_list, recurse)
