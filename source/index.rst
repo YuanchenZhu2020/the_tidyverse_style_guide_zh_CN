@@ -19,16 +19,16 @@ The tidyverse style guide zh-CN
 \ *The tidyverse style guide*\ :
 
 - \ **原书**\ ：\ `The tidyverse style guide <https://github.com/tidyverse/style>`__\ 
-- \ **原书网页文档版**\ : `The tidyverse style guide <https://style.tidyverse.org/>`__
-- \ **个人译本**\ : `The tidyverse style guide zh-CN <https://the-tidyverse-style-guide-zh-cn.readthedocs.io/zh_CN/latest/>`__
+- \ **原书网页文档版**\ : \ `The tidyverse style guide <https://style.tidyverse.org/>`__\ 
+- \ **个人译本**\ : \ `The tidyverse style guide zh-CN <https://the-tidyverse-style-guide-zh-cn.readthedocs.io/zh_CN/latest/>`__\ 
 - GitHub Repo: https://github.com/YuanchenZhu2020/the_tidyverse_style_guide_zh_CN
 
 
 \ *R Packages*\ :
 
-- \ **原书**\ : `R Packages <https://github.com/hadley/r-pkgs>`__
-- \ **原书网页文档版**\ : `R Packages <https://r-pkgs.org/>`__
-- \ **个人译本**\ : `R Packages zh-CN <https://r-packages-zh-cn.readthedocs.io/zh_CN/latest/>`__
+- \ **原书**\ : \ `R Packages <https://github.com/hadley/r-pkgs>`__\ 
+- \ **原书网页文档版**\ : \ `R Packages <https://r-pkgs.org/>`__\ 
+- \ **个人译本**\ : \ `R Packages zh-CN <https://r-packages-zh-cn.readthedocs.io/zh_CN/latest/>`__\ 
 - GitHub Repo: https://github.com/YuanchenZhu2020/R_Packages_zh_CN
 
 
