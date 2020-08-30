@@ -1,0 +1,59 @@
+6 程序包中的文件
+======================
+
+第一章中的大部分建议也适用于程序包中的文件。重要区别如下所述。
+
+
+6.1 名字
+------------
+
+- 如果一个文件包含一个函数，请给该文件指定与该函数相同的名称。
+- 如果一个文件包含多个相关函数，请给它一个简洁但又能引起联想的名称。
+- 弃用的函数应该位于前缀为 ``deprec-`` 的文件中。
+- 兼容性函数应该位于前缀为 ``compat-`` 的文件中。
+
+
+6.2 代码组织方式
+-------------------------
+
+在包含多个函数的文件中，公共函数及其文档应该首先出现，而私有函数则出现在所有文档化函数之后。如果多个公共函数共享同一个文档，则它们都应该一个接一个地放在文档块之后。
+
+有关在程序包中撰写函数文档的更详细的指导，请参见 \ `7 <https://style.tidyverse.org/documentation.html#documentation>`__\ 。
+
+.. code-block:: R
+
+    # Bad
+    help_compute <- function() {
+        # ... Lots of code ...
+    }
+
+    #' My public function
+    #'
+    #' This is where the documentation of my function begins.
+    #' ...
+    #' @export
+    do_something_cool <- function() {
+        # ... even more code ...
+        help_compute()
+    }
+
+.. code-block:: R
+
+    # Good
+    #' Lots of functions for doing something cool
+    #'
+    #' ... Complete documentation ...
+    #' @name something-cool
+    NULL
+
+    #' @describeIn something-cool Get the mean
+    #' @export
+    get_cool_mean <- function(x) {
+        # ...
+    }
+
+    #' @describeIn something-cool Get the sum
+    #' @export
+    get_cool_sum <- function(x) {
+        # ...
+    }

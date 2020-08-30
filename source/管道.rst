@@ -1,0 +1,146 @@
+4 管道
+===========
+
+
+4.1 介绍
+-----------
+
+使用 ``%>%`` 来强调一系列操作，而不是要对其执行操作的对象。
+
+避免在以下情况下使用管道：
+
+- 一次需要操纵多个对象。为应用于一个主要对象的一系列步骤保留管道符。
+- 有一些有意义的中间对象可以被赋予信息性的名称。
+
+
+4.2 空格
+-------------
+
+``%>%`` 前面应该总是有一个空格，后面通常应该有一个新行。在第一步之后，每行应该缩进两个空格。这种结构使添加新步骤（或重新排列现有步骤）更加容易，并且更难忽略步骤。
+
+.. code-block:: R
+
+    # Good
+    iris %>%
+        group_by(Species) %>%
+        summarize_if(is.numeric, mean) %>%
+        ungroup() %>%
+        gather(measure, value, -Species) %>%
+        arrange(value)
+
+    # Bad
+    iris %>% group_by(Species) %>% summarize_all(mean) %>%
+    ungroup %>% gather(measure, value, -Species) %>%
+    arrange(value)
+
+
+4.3 长的行
+--------------------
+
+如果函数的参数不能全部放在一行，请将每个参数放在自己的行上并缩进：
+
+.. code-block:: R
+
+    iris %>%
+        group_by(Species) %>%
+        summarise(
+            Sepal.Length = mean(Sepal.Length),
+            Sepal.Width = mean(Sepal.Width),
+            Species = n_distinct(Species)
+        )
+
+
+4.4 短管道
+--------------------
+
+单步管道可以保持在一行上，但是除非您计划以后扩展它，否则应该考虑将其重写为常规函数调用。
+
+.. code-block:: R
+
+    # Good
+    iris %>% arrange(Species)
+
+    iris %>% 
+        arrange(Species)
+
+    arrange(iris, Species)
+
+有时在较长的管道中包含一个短管道作为函数的参数是很有用的。仔细考虑代码可读性在使用短的内联管道（不需要在其他地方查找）时是否更高，还是将代码移到管道之外并为其指定一个准确的名称会更好。
+
+.. code-block:: R
+
+    # Good
+    x %>%
+        select(a, b, w) %>%
+        left_join(y %>% select(a, b, v), by = c("a", "b"))
+
+    # Better
+    x_join <- x %>% select(a, b, w)
+    y_join <- y %>% select(a, b, v)
+    left_join(x_join, y_join, by = c("a", "b"))
+
+
+4.5 没有参数
+----------------
+
+magritr 允许您在没有参数的函数上省略 ``()``。但是建议避免使用此功能。
+
+.. code-block:: R
+
+    # Good
+    x %>% 
+        unique() %>%
+        sort()
+
+    # Bad
+    x %>% 
+        unique %>%
+        sort
+
+
+4.6 赋值
+---------------
+
+有三种可接受的赋值形式：
+
+- 变量名和赋值操作在分开的行上：
+
+    .. code-block:: R
+
+        iris_long <-
+            iris %>%
+            gather(measure, value, -Species) %>%
+            arrange(-value)
+
+- 变量名和赋值操作在同一行上：
+
+    .. code-block:: R
+
+        iris_long <- iris %>%
+            gather(measure, value, -Species) %>%
+            arrange(-value)
+
+- 使用 ``->`` 在管道末端赋值：
+
+    .. code-block:: R
+
+        iris %>%
+            gather(measure, value, -Species) %>%
+            arrange(-value) ->
+            iris_long
+
+    我认为这是最自然的书写方式，但会让阅读变得更困难：当变量名排在第一位时，它可以作为一个标题来提醒你管道的用途。
+
+magritr 程序包提供 ``%<>%`` 运算符作为就地修改对象的快捷方式。建议避开这个操作。
+
+.. code-block:: R
+
+    # Good
+    x <- x %>% 
+        abs() %>% 
+        sort()
+    
+    # Bad
+    x %<>%
+        abs() %>% 
+        sort()

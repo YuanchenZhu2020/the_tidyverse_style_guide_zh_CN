@@ -59,9 +59,14 @@ The tidyverse style guide zh-CN
 .. toctree::
    :maxdepth: 2
    
-   前言.rst
-   文件.rst
-   语法.rst
+   前言
+   文件
+   语法
+   函数
+   管道
+   ggplot2
+   程序包中的文件
+   测试
 
 
 
